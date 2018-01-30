@@ -1,6 +1,6 @@
 package com.company;
 
- class ChessMusings {
+abstract class Pieces {
     enum Piece {
         ROOK,
         BISHOP,
@@ -8,4 +8,5 @@ package com.company;
         QUEEN,
         PAWN,
         KNIGHT
-    }}
+    }
+}

@@ -1,14 +1,11 @@
 package com.company;
 
-import javax.swing.border.Border;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static com.company.ChessMusings.*;
 
-public class Move {
+public class Move extends Pieces{
     static int fromRank;
     static int fromFile;
     static int toRank;
@@ -38,6 +35,7 @@ public class Move {
         pieceMovementRule.put(Piece.PAWN, (move) -> Move.isPawn());
         pieceMovementRule.put(Piece.BISHOP, (move -> Move.isDiagonal()));
         pieceMovementRule.put(Piece.KNIGHT, (move) -> Move.isKnight());
+
 
     }
 
