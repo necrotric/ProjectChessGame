@@ -77,20 +77,32 @@ public class Board {
     }
 
     static void moving() {
-        Move move = new Move(1, 1, 2, 1);
-        movePossible(move);
-    }
+      //todo add all  valid moves into this list  int[][] validMovesAi = new int[8][8];
+        for (int i = 1; i <=7 ; i++) {
+            for (int j = 1; j <=7 ; j++) {
+                for (int k = 1; k <= 7; k++) {
+                    for (int l = 1; l <=7 ; l++) {
+                        if(i!=k) {
+                            Move move = new Move(i, j, k, l);
+                            if (move.isValid(board)) {
+                                //board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
+                                board[move.fromRank][move.fromFile] = null;
+                                System.out.println(i + "," + j + "," + k + "," + l);
+
+                                printBoardToTerminal();
+                            } else {
+                                System.out.println("move is not valid");
+                            }
+                            //sleep(10);
+                        }
 
 
-    public static void movePossible(Move move) {
-        if (move.isValid(board)) {
-            board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
-            board[move.fromRank][move.fromFile] = null;
-            System.out.println("Move is valid");
-        } else {
-            System.out.println("move is not valid");
+                    }
+                }
+
+            }
+
         }
-        printBoardToTerminal();
     }
 
     public static void printBoardToTerminal() {
@@ -99,13 +111,20 @@ public class Board {
             // Loop through all elements of current row
             for (int j = 0; j < board[i].length; j++) {
                 if(board[i][j]!=null){
-                System.out.print(board[i][j].getClass().getSimpleName().toString() + "  ");
+                System.out.print(board[i][j].print() + "  ");
             }else{
-                    System.out.print(" x  ");
+                    System.out.print("  ORANGE");
                 }
 
             }
             System.out.println(i);
+        }
+    }
+    public static void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
