@@ -4,12 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import static com.company.Board.blackPawn;
 
-public class Move extends Pieces{
+
+public class Move extends Pieces {
     static int fromRank;
     static int fromFile;
     static int toRank;
     static int toFile;
+
+    public Move() {
+    }
 
     public Move(int fromRank, int fromFile, int toRank, int toFile) {
         this.fromRank = fromRank;
@@ -18,25 +23,40 @@ public class Move extends Pieces{
         this.toFile = toFile;
     }
 
-    public boolean isValid(Piece[][] board) {
-        Piece piece = board[fromRank][fromFile];
+    public boolean isValid(Pieces[][] board) {
+        Pieces piece = board[fromRank][fromFile];
 
         if (piece == null) {
+            System.out.println("move is not valid");
             return false;
-        }
+        } else {
+            System.out.println("Move is valid");
 
-        return pieceMovementRule.get(piece).test(this);
+            return pieceMovementRule.get(piece).test(this);
+        }
     }
 
-    static Map<Piece, Predicate<Move>> pieceMovementRule = new HashMap<>();
+    static Map<Pieces, Predicate<Move>> pieceMovementRule = new HashMap<>();
+
 
     static {
-        pieceMovementRule.put(Piece.ROOK, (move) -> Move.isVertical() || Move.isHorizontal());
-        pieceMovementRule.put(Piece.PAWN, (move) -> Move.isPawn());
+        //ÄNDRADE HASHMAPPEN ATT TA IN OBJECT IST FÖR ENUM
+        pieceMovementRule.put(blackPawn, new Predicate<Move>() {
+            @Override
+            public boolean test(Move move) {
+                return Move.isPawn();
+            }
+        });
+
+
+/*        pieceMovementRule.put(Piece.ROOK, new Predicate<Move>() {
+            @Override
+            public boolean test(Move move) {
+                return Move.isVertical() || Move.isHorizontal();
+            }
+        });
         pieceMovementRule.put(Piece.BISHOP, (move -> Move.isDiagonal()));
-        pieceMovementRule.put(Piece.KNIGHT, (move) -> Move.isKnight());
-
-
+        pieceMovementRule.put(Piece.KNIGHT, (move) -> Move.isKnight());*/
     }
 
 

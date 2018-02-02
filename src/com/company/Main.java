@@ -8,15 +8,16 @@ public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame("Chess");
         window.setSize(500, 500);
+        window.setVisible(true);
 
         Board.printBoard(window);
-        sleep(2000);
         Board.moving();
-        sleep(2000);
+        sleep(1000);
         Board.printBoard(window);
-
 
     }
+
+
 
     public static void sleep(int millis) {
         try {
