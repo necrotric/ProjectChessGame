@@ -16,12 +16,20 @@ public class Board {
     static Pieces whitePawn = new Pawn(Color.WHITE);
     static Pieces whiteRook= new Rook(Color.WHITE);
     static Pieces blackRook= new Rook(Color.BLACK);
+    static Pieces whiteKnight= new Knight(Color.WHITE);
+    static Pieces blackKnight= new Knight(Color.BLACK);
+    static Pieces whiteBishop=new Bishop(Color.WHITE);
+    static Pieces blackBishop=new Bishop(Color.BLACK);
+    static Pieces whiteQueen=new Queen(Color.WHITE);
+    static Pieces blackQueen=new Queen(Color.BLACK);
+    static Pieces whiteKing=new King (Color.WHITE);
+    static Pieces blackKing=new King (Color.BLACK);
 
     public static Pieces[][] board =
             board = new Pieces[][]{
                     new Pieces[]{
-                            blackRook, blackPawn, blackPawn, blackPawn, blackPawn,
-                            blackPawn, blackPawn, blackRook},
+                            blackRook, blackBishop, blackQueen, blackKing, blackBishop,
+                            blackBishop, blackKnight, blackRook},
                     new Pieces[]{
                             blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
                             blackPawn, blackPawn, blackPawn},
@@ -33,8 +41,8 @@ public class Board {
                             whitePawn, whitePawn, whitePawn, whitePawn, whitePawn,
                             whitePawn, whitePawn, whitePawn},
                     new Pieces[]{
-                            whiteRook, whitePawn, whitePawn, whitePawn, whitePawn,
-                            whitePawn, whitePawn, whiteRook},
+                            whiteRook, whiteKing, whiteBishop, whiteQueen, whiteKing,
+                            whiteBishop, whiteKnight, whiteRook},
             };
     static boolean start = true;
 
