@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import static com.company.Board.blackPawn;
+import static com.company.Board.*;
 
 
 public class Move extends Pieces {
@@ -27,11 +27,9 @@ public class Move extends Pieces {
         Pieces piece = board[fromRank][fromFile];
 
         if (piece == null) {
-            System.out.println("move is not valid");
+            //System.out.println("move is not valid");
             return false;
         } else {
-            System.out.println("Move is valid");
-
             return pieceMovementRule.get(piece).test(this);
         }
     }
@@ -43,10 +41,16 @@ public class Move extends Pieces {
         //ÄNDRADE HASHMAPPEN ATT TA IN OBJECT IST FÖR ENUM
         pieceMovementRule.put(blackPawn, new Predicate<Move>() {
             @Override
-            public boolean test(Move move) {
-                return Move.isPawn();
+            public boolean test(Move move) {return Move.isblackPawn();
             }
         });
+        pieceMovementRule.put(whitePawn, new Predicate<Move>() {
+                    @Override
+                    public boolean test(Move move) {
+                        return Move.iswhitePawn();
+
+                    }
+                });
 
 
 /*        pieceMovementRule.put(Piece.ROOK, new Predicate<Move>() {
@@ -68,8 +72,11 @@ public class Move extends Pieces {
         return fromFile == toFile;
     }
 
-    private static boolean isPawn() {
-        return fromRank + 2 == toRank || fromRank - 2 == toRank || fromRank + 1 == toRank || fromRank - 1 == toRank;
+    private static boolean isblackPawn() {
+        return  fromRank + 1 == toRank&& fromFile == toFile;
+    }
+    private static boolean iswhitePawn(){
+        return  fromRank - 1 == toRank&&fromFile == toFile;
     }
 
     private static boolean isDiagonal() {
