@@ -32,6 +32,9 @@ public abstract class Pieces {
         this.piece=piece;
 
     }
+    public Color getColor() {
+        return color;
+    }
 
 String print (){
         return icon+color;
