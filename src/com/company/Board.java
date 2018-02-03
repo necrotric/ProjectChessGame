@@ -14,21 +14,21 @@ public class Board {
     //KANSKE SÅHÄR ISTÄLLET??? testa
     static Pieces blackPawn = new Pawn(Color.BLACK);
     static Pieces whitePawn = new Pawn(Color.WHITE);
-    static Pieces whiteRook= new Rook(Color.WHITE);
-    static Pieces blackRook= new Rook(Color.BLACK);
-    static Pieces whiteKnight= new Knight(Color.WHITE);
-    static Pieces blackKnight= new Knight(Color.BLACK);
-    static Pieces whiteBishop=new Bishop(Color.WHITE);
-    static Pieces blackBishop=new Bishop(Color.BLACK);
-    static Pieces whiteQueen=new Queen(Color.WHITE);
-    static Pieces blackQueen=new Queen(Color.BLACK);
-    static Pieces whiteKing=new King (Color.WHITE);
-    static Pieces blackKing=new King (Color.BLACK);
+    static Pieces whiteRook = new Rook(Color.WHITE);
+    static Pieces blackRook = new Rook(Color.BLACK);
+    static Pieces whiteKnight = new Knight(Color.WHITE);
+    static Pieces blackKnight = new Knight(Color.BLACK);
+    static Pieces whiteBishop = new Bishop(Color.WHITE);
+    static Pieces blackBishop = new Bishop(Color.BLACK);
+    static Pieces whiteQueen = new Queen(Color.WHITE);
+    static Pieces blackQueen = new Queen(Color.BLACK);
+    static Pieces whiteKing = new King(Color.WHITE);
+    static Pieces blackKing = new King(Color.BLACK);
 
     public static Pieces[][] board =
             board = new Pieces[][]{
                     new Pieces[]{
-                            blackRook, blackBishop, blackQueen, blackKing, blackBishop,
+                            blackRook, blackKnight, blackBishop, blackKing, blackQueen,
                             blackBishop, blackKnight, blackRook},
                     new Pieces[]{
                             blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
@@ -41,7 +41,7 @@ public class Board {
                             whitePawn, whitePawn, whitePawn, whitePawn, whitePawn,
                             whitePawn, whitePawn, whitePawn},
                     new Pieces[]{
-                            whiteRook, whiteKing, whiteBishop, whiteQueen, whiteKing,
+                            whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing,
                             whiteBishop, whiteKnight, whiteRook},
             };
     static boolean start = true;
@@ -50,6 +50,7 @@ public class Board {
         JPanel gui = new JPanel(new GridLayout(8, 8, 1, 1));
         JButton[][] chessBoardSquares = new JButton[8][8];
         Font font = new Font("Serif", Font.PLAIN, 45);
+
 
         for (int i = 0; i < chessBoardSquares.length; i++) {
             for (int j = 0; j < chessBoardSquares[i].length; j++) {
@@ -61,8 +62,9 @@ public class Board {
                 if ((i % 2 == 1 && j % 2 == 1) || (i % 2 == 0 && j % 2 == 0)) {
                     b.setBackground(WHITE);
                 } else {
-                    b.setBackground(BLACK);
+                    b.setBackground(RED);
                 }
+
                 chessBoardSquares[j][i] = b;
 
                 if (board[i][j] != null) {
@@ -98,9 +100,9 @@ public class Board {
         for (int i = 0; i < board.length; i++) {
             // Loop through all elements of current row
             for (int j = 0; j < board[i].length; j++) {
-                if(board[i][j]!=null){
-                System.out.print(board[i][j].getClass().getSimpleName().toString() + "  ");
-            }else{
+                if (board[i][j] != null) {
+                    System.out.print(board[i][j].print() + "  ");
+                } else {
                     System.out.print(" x  ");
                 }
 

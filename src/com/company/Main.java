@@ -9,6 +9,7 @@ public class Main {
         JFrame window = new JFrame("Chess");
         window.setSize(500, 500);
         window.setVisible(true);
+        window.setDefaultCloseOperation(3);
 
         Board.printBoard(window);
         Board.moving();
