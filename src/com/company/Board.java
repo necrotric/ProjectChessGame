@@ -46,8 +46,9 @@ public class Board {
                             whiteBishop, whiteKnight, whiteRook},
             };
     static boolean start = true;
+
     public static void printBoard(JFrame window) {
-        String COLS= "  ABCDEFGH";
+        String COLS = "  ABCDEFGH";
 
         JPanel gui = new JPanel(new GridLayout(9, 9, 1, 1));
         JButton[][] chessBoardSquares = new JButton[8][8];
@@ -60,9 +61,9 @@ public class Board {
 
         for (int i = 0; i < chessBoardSquares.length; i++) {
             for (int j = 0; j < chessBoardSquares[i].length; j++) {
-                if(j==0){
-                        gui.add(new JLabel("" + (i ),
-                                SwingConstants.CENTER));
+                if (j == 0) {
+                    gui.add(new JLabel("" + (i),
+                            SwingConstants.CENTER));
                 }
                 JButton b = new JButton();
                 b.setFont(new Font("Serif", Font.BOLD, 50));
@@ -92,47 +93,47 @@ public class Board {
     static void moving(JFrame window) {
         int[] validMovesAi = new int[300];
         int countingValidIndex = 0;
-        int countingValidMoves=0;
-        Random rand= new Random();
-        for (int i = 1; i <7; i++) {
+        int countingValidMoves = 0;
+        Random rand = new Random();
+        for (int o = 0; o < 7; o++) {
+            for (int i = 1; i < 7; i++) {
+                for (int j = 0; j <= 7; j++) {
+                    for (int k = 0; k <= 7; k++) {
+                        for (int l = 0; l <= 7; l++) {
+                            if (i != k) {
 
-            for (int j = 1; j <= 7; j++) {
-                for (int k = 1; k <= 7; k++) {
-                    for (int l = 1; l <= 7; l++) {
-                        if (i != k) {
+                                if (board[i][j] != null && board[i][j].getColor() == Color.BLACK) {
+                                    Move move = new Move(i, j, k, l);
+                                    if (move.isValid(board)) {
+                                        board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
+                                        board[move.fromRank][move.fromFile] = null;
+                                        System.out.println(i + "," + j + "," + k + "," + l);
+                                        validMovesAi[countingValidIndex] = i;
+                                        countingValidIndex++;
+                                        validMovesAi[countingValidIndex] = j;
+                                        countingValidIndex++;
+                                        validMovesAi[countingValidIndex] = k;
+                                        countingValidIndex++;
+                                        validMovesAi[countingValidIndex] = l;
+                                        countingValidIndex++;
+                                        countingValidMoves++;
 
-                           if(board[i][j] != null && board[i][j].getColor() == Color.WHITE) {
-                                Move move = new Move(i, j, k, l);
-                                if (move.isValid(board)) {
-                                    board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
-                                    board[move.fromRank][move.fromFile] = null;
-                                    System.out.println(i + "," + j + "," + k + "," + l);
-                                    validMovesAi[countingValidIndex] = i;
-                                    countingValidIndex++;
-                                    validMovesAi[countingValidIndex] = j;
-                                    countingValidIndex++;
-                                    validMovesAi[countingValidIndex] = k;
-                                    countingValidIndex++;
-                                    validMovesAi[countingValidIndex] = l;
-                                    countingValidIndex++;
-                                    countingValidMoves++;
+                                        sleep(500);
+                                        printBoard(window);
+                                        printBoardToTerminal();
+                                    } else {
+                                        System.out.println("move is not valid");
+                                    }
 
-                                    sleep(500);
-                                    printBoard(window);
-                                    printBoardToTerminal();
-                                } else {
-                                    System.out.println("move is not valid");
                                 }
-
                             }
                         }
-                   }
 
                     }
                 }
 
             }
-
+        }
 
 
         int number = rand.nextInt(countingValidMoves) * 4;
@@ -140,20 +141,20 @@ public class Board {
             System.out.print(asd);
         }
         System.out.println(validMovesAi[number]);
-        for(int i=0;i<4;i++){
-            System.out.print(validMovesAi[number+i]);
-            int x1=validMovesAi[number+0];
-            int y1=validMovesAi[number+1];
-            int x2=validMovesAi[number+2];
-            int y2=validMovesAi[number+3];
+        for (int i = 0; i < 4; i++) {
+            System.out.print(validMovesAi[number + i]);
+            int x1 = validMovesAi[number + 0];
+            int y1 = validMovesAi[number + 1];
+            int x2 = validMovesAi[number + 2];
+            int y2 = validMovesAi[number + 3];
 
         }
         //Random flyttar 1 pjäs från valid move
-        int x1=validMovesAi[number];
-        int y1=validMovesAi[number+1];
-        int x2=validMovesAi[number+2];
-        int y2=validMovesAi[number+3];
-        Move moveRandom= new Move(x1,y1,x2,y2);
+        int x1 = validMovesAi[number];
+        int y1 = validMovesAi[number + 1];
+        int x2 = validMovesAi[number + 2];
+        int y2 = validMovesAi[number + 3];
+        Move moveRandom = new Move(x1, y1, x2, y2);
     }
 
 

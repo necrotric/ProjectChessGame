@@ -52,6 +52,25 @@ public class Move extends Pieces {
 
             }
         });
+      /*  pieceMovementRule.put(blackRook, new Predicate<Move>(){
+            @Override
+            public boolean test(Move move){
+                return Move.isRook();
+            }
+                });*/
+      /*  pieceMovementRule.put(whiteKnight, new Predicate<Move>(){
+            @Override
+                    public boolean test(Move move){
+                return Move.isKnight();
+            }
+        });
+        pieceMovementRule.put(blackKnight, new Predicate<Move>(){
+            @Override
+            public boolean test(Move move){
+                return Move.isKnight();
+            }
+        });*/
+
 
 
 /*        pieceMovementRule.put(Piece.ROOK, new Predicate<Move>() {
@@ -88,6 +107,9 @@ public class Move extends Pieces {
     private static boolean isKnight() {
         return (fromRank - toRank) / (fromFile - toFile) == 2 || (fromRank - toRank) / (fromFile - toFile) == -2
                 || (fromFile - toFile) / (fromRank - toRank) == 2 || (fromFile - toFile) / (fromRank - toRank) == -2;
+    }
+    private static boolean isRook(){
+        return fromRank == toRank ||fromFile == toFile;
     }
 
 
