@@ -52,12 +52,18 @@ public class Move extends Pieces {
 
             }
         });
-      /*  pieceMovementRule.put(blackRook, new Predicate<Move>(){
+             pieceMovementRule.put(blackRook, new Predicate<Move>(){
             @Override
             public boolean test(Move move){
                 return Move.isRook();
             }
-                });*/
+                });
+        pieceMovementRule.put(blackBishop, new Predicate<Move>(){
+            @Override
+            public boolean test(Move move){
+                return Move.isDiagonal();
+            }
+        });
       /*  pieceMovementRule.put(whiteKnight, new Predicate<Move>(){
             @Override
                     public boolean test(Move move){
@@ -93,7 +99,12 @@ public class Move extends Pieces {
     }
 
     private static boolean isblackPawn() {
-        return fromRank + 1 == toRank && fromFile == toFile;
+        if(fromRank==1){
+            return fromRank + 1 == toRank && fromFile == toFile || fromRank + 2 == toRank && fromFile == toFile;
+        }
+        else {
+            return fromRank + 1 == toRank && fromFile == toFile;
+        }
     }
 
     private static boolean iswhitePawn() {
@@ -104,12 +115,12 @@ public class Move extends Pieces {
         return (fromRank - toRank) / (fromFile - toFile) == 1 || (fromRank - toRank) / (fromFile - toFile) == -1;
     }
 
-    private static boolean isKnight() {
+/*    private static boolean isKnight() {
         return (fromRank - toRank) / (fromFile - toFile) == 2 || (fromRank - toRank) / (fromFile - toFile) == -2
                 || (fromFile - toFile) / (fromRank - toRank) == 2 || (fromFile - toFile) / (fromRank - toRank) == -2;
-    }
-    private static boolean isRook(){
-        return fromRank == toRank ||fromFile == toFile;
+    }*/
+        private static boolean isRook(){
+        return fromRank == toRank && toRank>=0 && toRank<=7||fromFile == toFile && toFile>=0 && toFile<=7;
     }
 
 

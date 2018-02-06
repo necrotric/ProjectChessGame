@@ -29,8 +29,8 @@ public class Board {
     public static Pieces[][] board =
             board = new Pieces[][]{
                     new Pieces[]{
-                            blackRook, blackBishop, blackQueen, blackKing, blackBishop,
-                            blackBishop, blackKnight, blackRook},
+                            blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
+                            blackPawn, blackPawn, blackPawn},
                     new Pieces[]{
                             blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
                             blackPawn, blackPawn, blackPawn},
@@ -91,22 +91,21 @@ public class Board {
 
 
     static void moving(JFrame window) {
-        int[] validMovesAi = new int[300];
+        int[] validMovesAi = new int[30000];
         int countingValidIndex = 0;
         int countingValidMoves = 0;
         Random rand = new Random();
-        for (int o = 0; o < 7; o++) {
-            for (int i = 1; i < 7; i++) {
+            for (int i = 0; i < 7; i++) {
                 for (int j = 0; j <= 7; j++) {
                     for (int k = 0; k <= 7; k++) {
                         for (int l = 0; l <= 7; l++) {
-                            if (i != k) {
+                            if (i != k||j!=l) {
 
                                 if (board[i][j] != null && board[i][j].getColor() == Color.BLACK) {
                                     Move move = new Move(i, j, k, l);
                                     if (move.isValid(board)) {
-                                        board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
-                                        board[move.fromRank][move.fromFile] = null;
+                                        //board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
+                                        //board[move.fromRank][move.fromFile] = null;
                                         System.out.println(i + "," + j + "," + k + "," + l);
                                         validMovesAi[countingValidIndex] = i;
                                         countingValidIndex++;
@@ -118,7 +117,7 @@ public class Board {
                                         countingValidIndex++;
                                         countingValidMoves++;
 
-                                        sleep(500);
+                                        //sleep(500);
                                         printBoard(window);
                                         printBoardToTerminal();
                                     } else {
@@ -127,11 +126,10 @@ public class Board {
 
                                 }
                             }
+
                         }
 
-                    }
                 }
-
             }
         }
 
@@ -141,12 +139,14 @@ public class Board {
             System.out.print(asd);
         }
         System.out.println(validMovesAi[number]);
+        for(int i=0; i<countingValidIndex;i++);
         for (int i = 0; i < 4; i++) {
             System.out.print(validMovesAi[number + i]);
             int x1 = validMovesAi[number + 0];
             int y1 = validMovesAi[number + 1];
             int x2 = validMovesAi[number + 2];
             int y2 = validMovesAi[number + 3];
+
 
         }
         //Random flyttar 1 pjäs från valid move
@@ -155,6 +155,12 @@ public class Board {
         int x2 = validMovesAi[number + 2];
         int y2 = validMovesAi[number + 3];
         Move moveRandom = new Move(x1, y1, x2, y2);
+        board[moveRandom.toRank][moveRandom.toFile] = board[moveRandom.fromRank][moveRandom.fromFile];
+        board[moveRandom.fromRank][moveRandom.fromFile] = null;
+       moveRandom.isValid(board);
+        printBoard(window);
+        printBoardToTerminal();
+
     }
 
 
