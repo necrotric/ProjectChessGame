@@ -4,7 +4,7 @@ public class Queen extends Pieces {
     public Queen(Color color) {
         super(color);
         this.value=10;
-        this.piece=Piece.QUEEN;
+        this.piece=ChessPiece.QUEEN;
 
         if(color== Color.WHITE)
         {this.icon= "\u2655";}

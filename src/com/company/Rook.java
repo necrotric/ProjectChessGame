@@ -9,7 +9,7 @@ public class Rook extends Pieces{
     public Rook(Color color) {
         super(color);
         this.value=5;
-        this.piece=Piece.ROOK;
+        this.piece=ChessPiece.ROOK;
 
         if(color== Color.WHITE)
         {this.icon="\u2656";}

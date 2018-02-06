@@ -41,16 +41,17 @@ public class Move extends Pieces {
         //ÄNDRADE HASHMAPPEN ATT TA IN OBJECT IST FÖR ENUM
         pieceMovementRule.put(blackPawn, new Predicate<Move>() {
             @Override
-            public boolean test(Move move) {return Move.isblackPawn();
+            public boolean test(Move move) {
+                return Move.isblackPawn();
             }
         });
         pieceMovementRule.put(whitePawn, new Predicate<Move>() {
-                    @Override
-                    public boolean test(Move move) {
-                        return Move.iswhitePawn();
+            @Override
+            public boolean test(Move move) {
+                return Move.iswhitePawn();
 
-                    }
-                });
+            }
+        });
 
 
 /*        pieceMovementRule.put(Piece.ROOK, new Predicate<Move>() {
@@ -73,10 +74,11 @@ public class Move extends Pieces {
     }
 
     private static boolean isblackPawn() {
-        return  fromRank + 1 == toRank&& fromFile == toFile;
+        return fromRank + 1 == toRank && fromFile == toFile;
     }
-    private static boolean iswhitePawn(){
-        return  fromRank - 1 == toRank&&fromFile == toFile;
+
+    private static boolean iswhitePawn() {
+        return fromRank - 1 == toRank && fromFile == toFile;
     }
 
     private static boolean isDiagonal() {

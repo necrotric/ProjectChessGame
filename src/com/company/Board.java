@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.Pieces.Piece;
+import com.company.Pieces.ChessPiece;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,6 +59,8 @@ public class Board {
                 b.setBorder(BorderFactory.createLineBorder(BLACK));
                 b.setOpaque(true);
 
+//                if (board[i][j].getColor()==Color.WHITE);
+
                 if ((i % 2 == 1 && j % 2 == 1) || (i % 2 == 0 && j % 2 == 0)) {
                     b.setBackground(WHITE);
                 } else {
@@ -71,22 +73,24 @@ public class Board {
                 }
                 gui.add(b);
             }
-            window.add(gui);
         }
-
+        window.add(gui);
         window.revalidate();
     }
 
-    static void moving() {
+
+    static void moving(JFrame window) {
         int[] validMovesAi = new int[300];
         int countingValidIndex = 0;
         int countingValidMoves=0;
         Random rand= new Random();
         for (int i = 1; i <7; i++) {
+
             for (int j = 1; j <= 7; j++) {
                 for (int k = 1; k <= 7; k++) {
                     for (int l = 1; l <= 7; l++) {
                         if (i != k) {
+
                            if(board[i][j] != null && board[i][j].getColor() == Color.WHITE) {
                                 Move move = new Move(i, j, k, l);
                                 if (move.isValid(board)) {
@@ -103,12 +107,13 @@ public class Board {
                                     countingValidIndex++;
                                     countingValidMoves++;
 
-
+                                    sleep(500);
+                                    printBoard(window);
                                     printBoardToTerminal();
                                 } else {
                                     System.out.println("move is not valid");
                                 }
-                                //sleep(10);
+
                             }
                         }
                    }
