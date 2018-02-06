@@ -37,6 +37,10 @@ public abstract class Pieces {
     }
 
 String print (){
-        return icon+color;
+
+        return icon + color;
+
+
+
 }
 }

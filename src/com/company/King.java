@@ -7,7 +7,8 @@ public class King extends Pieces {
         this.piece=Piece.KNIGHT;
 
         if(color== Color.WHITE)
-        {this.icon="\u2654";}
+        {this.icon="\u2654";
+        }
         else{
             this.icon="\u265A";
         }

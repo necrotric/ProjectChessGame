@@ -87,10 +87,10 @@ public class Board {
                 for (int k = 1; k <= 7; k++) {
                     for (int l = 1; l <= 7; l++) {
                         if (i != k) {
-                          if(board[i][j].getClass().getSimpleName().charAt(0)=='W') {
+                           if(board[i][j] != null && board[i][j].getColor() == Color.WHITE) {
                                 Move move = new Move(i, j, k, l);
                                 if (move.isValid(board)) {
-                                    //board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
+                                    board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
                                     board[move.fromRank][move.fromFile] = null;
                                     System.out.println(i + "," + j + "," + k + "," + l);
                                     validMovesAi[countingValidIndex] = i;
