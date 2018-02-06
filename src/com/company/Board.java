@@ -46,14 +46,24 @@ public class Board {
                             whiteBishop, whiteKnight, whiteRook},
             };
     static boolean start = true;
-
     public static void printBoard(JFrame window) {
-        JPanel gui = new JPanel(new GridLayout(8, 8, 1, 1));
+        String COLS= "  ABCDEFGH";
+
+        JPanel gui = new JPanel(new GridLayout(9, 9, 1, 1));
         JButton[][] chessBoardSquares = new JButton[8][8];
         Font font = new Font("Serif", Font.PLAIN, 45);
+        for (int ii = 1; ii < 10; ii++) {
+            gui.add(
+                    new JLabel(COLS.substring(ii, ii + 1),
+                            SwingConstants.CENTER));
+        }
 
         for (int i = 0; i < chessBoardSquares.length; i++) {
             for (int j = 0; j < chessBoardSquares[i].length; j++) {
+                if(j==0){
+                        gui.add(new JLabel("" + (i ),
+                                SwingConstants.CENTER));
+                }
                 JButton b = new JButton();
                 b.setFont(new Font("Serif", Font.BOLD, 50));
                 b.setBorder(BorderFactory.createLineBorder(BLACK));
