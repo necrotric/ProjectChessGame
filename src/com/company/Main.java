@@ -6,15 +6,15 @@ import javax.swing.*;
 public class Main {
 
     public static void main(String[] args) {
-        JFrame window = new JFrame("Chess");
-        window.setSize(500, 500);
+         JFrame window = new JFrame("Chess");
+        window.setSize(600, 600);
         window.setVisible(true);
         window.setDefaultCloseOperation(3);
 
         Board.printBoard(window);
-        Board.moving();
         sleep(1000);
-        Board.printBoard(window);
+        Board.moving(window);
+
 
     }
 

@@ -3,7 +3,7 @@ package com.company;
 import java.awt.*;
 
 public abstract class Pieces {
-    enum Piece {
+    enum ChessPiece {
         ROOK,
         BISHOP,
         KING,
@@ -12,7 +12,7 @@ public abstract class Pieces {
         KNIGHT
     }
 
-    enum Color{
+    enum Color {
         BLACK,
         WHITE
     }
@@ -21,23 +21,31 @@ public abstract class Pieces {
     int value;
     String icon;
     private Color color;
-    Piece piece;
-    Pieces(){
+    ChessPiece piece;
+
+    Pieces() {
     }
 
-    Pieces(Color color){
-        this.color=color;
-        this.value=value;
-        this.icon=icon;
-        this.piece=piece;
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    Pieces(Color color) {
+        this.color = color;
+        this.value = value;
+        this.icon = icon;
+        this.piece = piece;
 
     }
 
-String print (){
+    String print() {
 
         return icon + color;
 
 
-
-}
+    }
 }

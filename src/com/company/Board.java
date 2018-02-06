@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.Pieces.Piece;
+import com.company.Pieces.ChessPiece;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,6 +59,8 @@ public class Board {
                 b.setBorder(BorderFactory.createLineBorder(BLACK));
                 b.setOpaque(true);
 
+//                if (board[i][j].getColor()==Color.WHITE);
+
                 if ((i % 2 == 1 && j % 2 == 1) || (i % 2 == 0 && j % 2 == 0)) {
                     b.setBackground(WHITE);
                 } else {
@@ -72,25 +74,25 @@ public class Board {
                 }
                 gui.add(b);
             }
-            window.add(gui);
         }
-
+        window.add(gui);
         window.revalidate();
     }
 
-    static void moving() {
-      //todo add all  valid moves into this list  int[][] validMovesAi = new int[8][8];
-        for (int i = 1; i <=7 ; i++) {
-            for (int j = 1; j <=7 ; j++) {
+    static void moving(JFrame window) {
+        //todo add all  valid moves into this list  int[][] validMovesAi = new int[8][8];
+        for (int i = 1; i <= 7; i++) {
+            for (int j = 1; j <= 7; j++) {
                 for (int k = 1; k <= 7; k++) {
-                    for (int l = 1; l <=7 ; l++) {
-                        if(i!=k) {
+                    for (int l = 1; l <= 7; l++) {
+                        if (i != k) {
                             Move move = new Move(i, j, k, l);
                             if (move.isValid(board)) {
-                                //board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
+                                board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
                                 board[move.fromRank][move.fromFile] = null;
                                 System.out.println(i + "," + j + "," + k + "," + l);
-
+                                sleep(1000);
+                                printBoard(window);
                                 printBoardToTerminal();
                             } else {
                                 System.out.println("move is not valid");
@@ -113,9 +115,9 @@ public class Board {
             // Loop through all elements of current row
             for (int j = 0; j < board[i].length; j++) {
 
-                if(board[i][j]!=null){
-                System.out.print(board[i][j].print() + "  ");
-            }else{
+                if (board[i][j] != null) {
+                    System.out.print(board[i][j].print() + "  ");
+                } else {
                     System.out.print("  ORANGE");
 
                 }
@@ -124,6 +126,7 @@ public class Board {
             System.out.println(i);
         }
     }
+
     public static void sleep(int millis) {
         try {
             Thread.sleep(millis);

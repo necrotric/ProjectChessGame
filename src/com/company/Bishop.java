@@ -8,7 +8,7 @@ public class Bishop extends Pieces {
 
         super(color);
         this.value=3;
-        this.piece=Piece.KNIGHT;
+    this.piece=ChessPiece.BISHOP;
 
         if(color== Color.WHITE)
         {this.icon="\u2657";}

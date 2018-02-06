@@ -9,7 +9,7 @@ public class Knight extends Pieces {
     public Knight(Color color) {
         super(color);
         this.value=2;
-        this.piece=Piece.KNIGHT;
+        this.piece=ChessPiece.KNIGHT;
 
         if(color== Color.WHITE)
         {this.icon="\u2658";}
