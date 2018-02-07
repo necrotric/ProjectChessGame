@@ -17,7 +17,7 @@ public class Pawn extends Pieces {
         this.piece=ChessPiece.PAWN;
 
         if(color== Color.WHITE)
-        {this.icon="\uD83D\uDC19";}
+        {this.icon="\u2659";}
         else{
         this.icon="\u265F";
         }
