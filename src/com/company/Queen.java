@@ -3,13 +3,13 @@ package com.company;
 public class Queen extends Pieces {
     public Queen(Color color) {
         super(color);
-        this.value=10;
-        this.piece=ChessPiece.QUEEN;
+        this.value = 10;
+        this.piece = ChessPiece.QUEEN;
 
-        if(color== Color.WHITE)
-        {this.icon= "\u2655";}
-        else{
-            this.icon="\u265B";
+        if (color == Color.WHITE) {
+            this.icon = "\u2655";
+        } else {
+            this.icon = "\u265B";
         }
 
     }
