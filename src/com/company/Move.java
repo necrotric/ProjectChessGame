@@ -29,16 +29,12 @@ public class Move extends Pieces {
         return fromPiece != null && pieceMovementRule.get(fromPiece).test(this);
     }
 
-    public boolean isEnemy(){
-        Pieces fromPiece=board[fromRank][fromFile];
-        Pieces enemyPiece=board[toRank][toFile];
-        if (fromPiece.getColor()==enemyPiece.getColor()){
-            return false;
-        }else if (fromPiece.getColor()!=enemyPiece.getColor()){
+    public boolean isEnemy() {
+        Pieces piece = board[fromRank][fromFile];
+        if (piece.getColor()!=board[toRank][toFile].getColor() || board[toRank][toFile]==emptyTile) {
             return true;
-        }else{
-            return false;
-        }
+        } else return false;
+
     }
 
     static Map<Pieces, Predicate<Move>> pieceMovementRule = new HashMap<>();

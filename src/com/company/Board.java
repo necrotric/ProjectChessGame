@@ -5,9 +5,6 @@ import com.company.Pieces.ChessPiece;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.util.Random;
-
-import static com.company.Pieces.*;
 import static java.awt.Color.*;
 
 import com.company.Pieces.Color;
@@ -27,6 +24,8 @@ public class Board {
     static Pieces blackQueen = new Queen(Color.BLACK);
     static Pieces whiteKing = new King(Color.WHITE);
     static Pieces blackKing = new King(Color.BLACK);
+    static Pieces emptyTile = new EmptyTile(Color.ORANGE);
+
 
     public static Pieces[][] board =
             board = new Pieces[][]{
@@ -36,10 +35,10 @@ public class Board {
                     new Pieces[]{
                             blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
                             blackPawn, blackPawn, blackPawn},
-                    new Pieces[8],
-                    new Pieces[8],
-                    new Pieces[8],
-                    new Pieces[8],
+                    new Pieces[]{emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile},
+                    new Pieces[]{emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile},
+                    new Pieces[]{emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile},
+                    new Pieces[]{emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile},
                     new Pieces[]{
                             whitePawn, whitePawn, whitePawn, whitePawn, whitePawn,
                             whitePawn, whitePawn, whitePawn},
@@ -47,6 +46,7 @@ public class Board {
                             whiteRook, whiteRook, whiteBishop, whiteQueen, whiteKing,
                             whiteBishop, whiteRook, whiteRook},
             };
+
     static boolean start = true;
 
     public static void printBoard(JFrame window) {
@@ -55,7 +55,7 @@ public class Board {
         JButton[][] chessBoardSquares = new JButton[8][8];
         Font font = new Font("Serif", Font.PLAIN, 45);
 
-        Border border = BorderFactory.createLineBorder(BLACK,2);
+        Border border = BorderFactory.createLineBorder(BLACK, 2);
 
         for (int ii = 1; ii < 10; ii++) {
             gui.add(
@@ -183,14 +183,18 @@ public class Board {
             printBoardToTerminal();
 
         }*/
-    Move move = new Move(0,0,7,0);
-   if(move.isValid(board)){
-       board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
-       board[move.fromRank][move.fromFile] = null;
-   }
 
 
-
+        Move move = new Move(0, 0, 4, 0);
+        if (move.isValid(board) && move.isEnemy()) {
+            board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
+            board[move.fromRank][move.fromFile] = emptyTile;
+            System.out.println("flyttar"+ move.isEnemy());
+        } else {
+            System.out.println("sattans metod funkar inte");
+        }
+        printBoard(window);
+        printBoardToTerminal();
 
 
     }

@@ -14,7 +14,8 @@ public abstract class Pieces {
 
     enum Color {
         BLACK,
-        WHITE
+        WHITE,
+        ORANGE
     }
 
 
