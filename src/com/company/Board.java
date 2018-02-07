@@ -3,6 +3,7 @@ package com.company;
 import com.company.Pieces.ChessPiece;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import static com.company.Pieces.*;
 import static java.awt.Color.*;
 
 import com.company.Pieces.Color;
+
 
 public class Board {
     //KANSKE SÅHÄR ISTÄLLET??? testa
@@ -29,8 +31,8 @@ public class Board {
     public static Pieces[][] board =
             board = new Pieces[][]{
                     new Pieces[]{
-                            blackRook, blackKnight, blackBishop, blackQueen, blackKing,
-                            blackBishop, blackKnight, blackRook},
+                            blackRook, blackRook, blackBishop, blackQueen, blackKing,
+                            blackBishop, blackRook, blackRook},
                     new Pieces[]{
                             blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
                             blackPawn, blackPawn, blackPawn},
@@ -42,17 +44,19 @@ public class Board {
                             whitePawn, whitePawn, whitePawn, whitePawn, whitePawn,
                             whitePawn, whitePawn, whitePawn},
                     new Pieces[]{
-                            whiteRook, whiteKing, whiteBishop, whiteQueen, whiteKing,
-                            whiteBishop, whiteKnight, whiteRook},
+                            whiteRook, whiteRook, whiteBishop, whiteQueen, whiteKing,
+                            whiteBishop, whiteRook, whiteRook},
             };
     static boolean start = true;
 
     public static void printBoard(JFrame window) {
         String COLS = "  ABCDEFGH";
-
         JPanel gui = new JPanel(new GridLayout(9, 9, 1, 1));
         JButton[][] chessBoardSquares = new JButton[8][8];
         Font font = new Font("Serif", Font.PLAIN, 45);
+
+        Border border = BorderFactory.createLineBorder(BLACK,2);
+
         for (int ii = 1; ii < 10; ii++) {
             gui.add(
                     new JLabel(COLS.substring(ii, ii + 1),
@@ -67,7 +71,7 @@ public class Board {
                 }
                 JButton b = new JButton();
                 b.setFont(new Font("Serif", Font.BOLD, 50));
-                b.setBorder(BorderFactory.createLineBorder(BLACK));
+                b.setBorder(border);
                 b.setOpaque(true);
 
 
@@ -80,6 +84,8 @@ public class Board {
 
                 if (board[i][j] != null) {
                     b.add(new JLabel(board[i][j].icon)).setFont(font);
+                    b.setOpaque(true);
+                    b.setForeground(RED);
                 }
                 gui.add(b);
             }
@@ -91,32 +97,26 @@ public class Board {
 
 
     static void moving(JFrame window) {
-        int[] validMovesAi = new int[30000];
+ /*       int[] validMovesAi = new int[30000];
+
         int countingValidIndex = 0;
         int countingValidMoves = 0;
         long loops = 0;
         Random rand = new Random();
         for (int o = 0; o < 100; o++) {
             loops++;
-            for (int i = 0; i <= 7; i++) {
+            for (int i = 0; i < board.length; i++) {
                 loops++;
-
-                for (int j = 0; j <= 7; j++) {
+                for (int j = 0; j < board.length; j++) {
                     loops++;
-
-                    for (int k = 0; k <= 7; k++) {
+                    for (int k = 0; k < board.length; k++) {
                         loops++;
-
-                        for (int l = 0; l <= 7; l++) {
+                        for (int l = 0; l < board.length; l++) {
                             loops++;
-
                             if (i != k || j != l) {
-
                                 if (board[i][j] != null) {
                                     Move move = new Move(i, j, k, l);
                                     if (move.isValid(board)) {
-/*                                    board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
-                                    board[move.fromRank][move.fromFile] = null;*/
                                         System.out.println(i + "," + j + "," + k + "," + l);
                                         validMovesAi[countingValidIndex] = i;
                                         countingValidIndex++;
@@ -131,8 +131,9 @@ public class Board {
                                         //sleep(500);
                                         printBoard(window);
                                         printBoardToTerminal();
+                                        System.out.println(String.format("Move valid: [%d, %d -> %d, %d]", i, j, k, l));
                                     } else {
-                                        System.out.println("move is not valid");
+                                        //      System.out.println("move is not valid");
                                     }
                                 }
                             }
@@ -176,13 +177,22 @@ public class Board {
             if (moveRandom.isValid(board)) {
                 board[moveRandom.toRank][moveRandom.toFile] = board[moveRandom.fromRank][moveRandom.fromFile];
                 board[moveRandom.fromRank][moveRandom.fromFile] = null;
-                sleep(200);
             }
+
             printBoard(window);
             printBoardToTerminal();
 
-        }
-        System.out.println(loops);
+        }*/
+    Move move = new Move(0,0,7,0);
+   if(move.isValid(board)){
+       board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
+       board[move.fromRank][move.fromFile] = null;
+   }
+
+
+
+
+
     }
 
     public static void printBoardToTerminal() {

@@ -29,6 +29,18 @@ public class Move extends Pieces {
         return fromPiece != null && pieceMovementRule.get(fromPiece).test(this);
     }
 
+    public boolean isEnemy(){
+        Pieces fromPiece=board[fromRank][fromFile];
+        Pieces enemyPiece=board[toRank][toFile];
+        if (fromPiece.getColor()==enemyPiece.getColor()){
+            return false;
+        }else if (fromPiece.getColor()!=enemyPiece.getColor()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     static Map<Pieces, Predicate<Move>> pieceMovementRule = new HashMap<>();
 
 
@@ -77,13 +89,13 @@ public class Move extends Pieces {
         pieceMovementRule.put(blackKing, new Predicate<Move>() {
             @Override
             public boolean test(Move move) {
-                return Move.isBlackKing();
+                return Move.isKing();
             }
         });
         pieceMovementRule.put(whiteKing, new Predicate<Move>() {
             @Override
             public boolean test(Move move) {
-                return Move.isWhiteKing();
+                return Move.isKing();
             }
         });
         pieceMovementRule.put(whiteQueen, new Predicate<Move>() {
@@ -143,7 +155,7 @@ public class Move extends Pieces {
         return Math.abs(fromRank - toRank) - Math.abs(fromFile - toFile) == 0;
     }
 
-    private static boolean isBlackKing() {
+    private static boolean isKing() {
         if (fromRank + 1 == toRank && fromFile == toFile) {
             return true;
         } else if (fromFile + 1 == toFile && toRank == fromRank) {
@@ -155,8 +167,6 @@ public class Move extends Pieces {
         } else {
             return false;
         }
-
-
     }
 
     private static boolean isWhiteKing() {
@@ -166,13 +176,5 @@ public class Move extends Pieces {
     private static boolean isBlackKnight() {
         return fromRank - toRank == 1 || fromRank - toRank == -1;
     }
-
-
-
-
-/*        private static boolean isRook(){
-        return fromRank == toRank && toRank>=0 && toRank<=7||fromFile == toFile && toFile>=0 && toFile<=7;
-    }*/
-
 
 }
