@@ -25,17 +25,15 @@ public class Move extends Pieces {
 
     public boolean isValid(Pieces[][] board) {
         Pieces fromPiece = board[fromRank][fromFile];
-        //System.out.println("move is not valid");
-        return fromPiece != null && pieceMovementRule.get(fromPiece).test(this);
+        Pieces toPiece = board[toRank][toFile];
+
+        System.out.println(fromPiece.getColor() + board[toRank][toFile].getColor().toString());
+
+        return fromPiece != emptyTile &&
+                pieceMovementRule.get(fromPiece).test(this) &&
+                fromPiece.getColor() != toPiece.getColor();
     }
 
-    public boolean isEnemy() {
-        Pieces piece = board[fromRank][fromFile];
-        if (piece.getColor()!=board[toRank][toFile].getColor() || board[toRank][toFile]==emptyTile) {
-            return true;
-        } else return false;
-
-    }
 
     static Map<Pieces, Predicate<Move>> pieceMovementRule = new HashMap<>();
 

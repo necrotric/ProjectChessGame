@@ -5,9 +5,11 @@ import com.company.Pieces.ChessPiece;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+
 import static java.awt.Color.*;
 
 import com.company.Pieces.Color;
+
 
 
 public class Board {
@@ -35,10 +37,10 @@ public class Board {
                     new Pieces[]{
                             blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
                             blackPawn, blackPawn, blackPawn},
-                    new Pieces[]{emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile},
-                    new Pieces[]{emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile},
-                    new Pieces[]{emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile},
-                    new Pieces[]{emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile,emptyTile},
+                    new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
+                    new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
+                    new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
+                    new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
                     new Pieces[]{
                             whitePawn, whitePawn, whitePawn, whitePawn, whitePawn,
                             whitePawn, whitePawn, whitePawn},
@@ -63,6 +65,7 @@ public class Board {
                             SwingConstants.CENTER));
         }
 
+
         for (int i = 0; i < chessBoardSquares.length; i++) {
             for (int j = 0; j < chessBoardSquares[i].length; j++) {
                 if (j == 0) {
@@ -73,7 +76,6 @@ public class Board {
                 b.setFont(new Font("Serif", Font.BOLD, 50));
                 b.setBorder(border);
                 b.setOpaque(true);
-
 
                 if ((i % 2 == 1 && j % 2 == 1) || (i % 2 == 0 && j % 2 == 0)) {
                     b.setBackground(WHITE);
@@ -185,40 +187,47 @@ public class Board {
         }*/
 
 
-        Move move = new Move(0, 0, 4, 0);
-        if (move.isValid(board) && move.isEnemy()) {
+        Move move = new Move(7, 0, 0, 0);
+        if (move.isValid(board)) {
             board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
             board[move.fromRank][move.fromFile] = emptyTile;
-            System.out.println("flyttar"+ move.isEnemy());
+            System.out.println("Moving");
+            printBoard(window);
+            printBoardToTerminal();
         } else {
-            System.out.println("sattans metod funkar inte");
-        }
-        printBoard(window);
-        printBoardToTerminal();
+            System.out.println("Not moving");
 
+        }
+
+
+
+/*
+        allPieces.stream.filter(p -> {
+            if (p.color == Color.WHITE) {
+                return true;
+            } else {
+                return false;
+            }
+        }).
+                filter(wp -> {
+                    if (p.typ == ChessPiece.PAWN) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }.foreach(wp -> {
+                    System.out.println(wp);
+                }));*/
 
     }
 
     public static void printBoardToTerminal() {
-
         for (int i = 0; i < board.length; i++) {
             // Loop through all elements of current row
             for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] != null) {
-                    System.out.print(board[i][j].print() + "  ");
-                } else {
-                    System.out.print("  ORANGE");
-                }
+                System.out.print(board[i][j].print() + " ");
             }
             System.out.println(i);
-        }
-    }
-
-    public static void sleep(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
