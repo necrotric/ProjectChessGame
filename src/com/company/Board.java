@@ -75,7 +75,7 @@ public class Board {
                 if ((i % 2 == 1 && j % 2 == 1) || (i % 2 == 0 && j % 2 == 0)) {
                     b.setBackground(WHITE);
                 } else {
-                    b.setBackground(BLACK);
+                    b.setBackground(DARK_GRAY);
                 }
                 chessBoardSquares[j][i] = b;
 
