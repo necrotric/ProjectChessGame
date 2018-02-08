@@ -25,6 +25,7 @@ public abstract class Pieces {
     ChessPiece piece;
 
     Pieces() {
+        this.color=color;
     }
 
 

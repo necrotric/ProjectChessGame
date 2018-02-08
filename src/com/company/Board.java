@@ -30,14 +30,14 @@ public class Board {
     static Pieces blackQueen = new Queen(Color.BLACK);
     static Pieces whiteKing = new King(Color.WHITE);
     static Pieces blackKing = new King(Color.BLACK);
-    static Pieces emptyTile = new EmptyTile(Color.ORANGE);
+    static Pieces emptyTile = new EmptyTile();
 
 
     public static Pieces[][] board =
             new Pieces[][]{
                     new Pieces[]{
-                            blackRook, blackRook, blackBishop, blackQueen, blackKing,
-                            blackBishop, blackRook, blackRook},
+                            blackRook, blackKnight, blackBishop, blackQueen, blackKing,
+                            blackBishop, blackKnight, blackRook},
                     new Pieces[]{
                             blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
                             blackPawn, blackPawn, blackPawn},
@@ -49,8 +49,8 @@ public class Board {
                             whitePawn, whitePawn, whitePawn, whitePawn, whitePawn,
                             whitePawn, whitePawn, whitePawn},
                     new Pieces[]{
-                            whiteRook, whiteRook, whiteBishop, whiteQueen, whiteKing,
-                            whiteBishop, whiteRook, whiteRook},
+                            whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing,
+                            whiteBishop, whiteKnight, whiteRook},
             };
 
     static boolean start = true;
@@ -69,7 +69,6 @@ public class Board {
                             SwingConstants.CENTER));
         }
 
-
         for (int i = 0; i < chessBoardSquares.length; i++) {
             for (int j = 0; j < chessBoardSquares[i].length; j++) {
                 if (j == 0) {
@@ -87,12 +86,9 @@ public class Board {
                     b.setBackground(RED);
                 }
                 chessBoardSquares[j][i] = b;
-
-                if (board[i][j] != null) {
-                    b.add(new JLabel(board[i][j].icon)).setFont(font);
-                    b.setOpaque(true);
-                    b.setForeground(RED);
-                }
+                b.add(new JLabel(board[i][j].icon)).setFont(font);
+                b.setOpaque(true);
+                b.setForeground(RED);
                 gui.add(b);
             }
         }
@@ -191,7 +187,7 @@ public class Board {
         }*/
 
 
-        Move move = new Move(1, 2, 3, 2);
+        Move move = new Move(0, 1, 2, 2);
         if (move.isValid(board)) {
             board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
             board[move.fromRank][move.fromFile] = emptyTile;
@@ -204,31 +200,18 @@ public class Board {
         }
 
 
-        Arrays.stream(board).forEach(p -> Arrays.stream(p).filter(wp -> {
-            if (wp.color == Color.WHITE) {
-                return true;
-            } else {
-                return false;
-            }
-        }).forEach(wp -> System.out.println(wp.getColor() + wp.getClass().getSimpleName())));
+/*        Arrays.stream(board).forEach(p -> {
+            Arrays.stream(p).filter(wp -> {
+                if (wp.color == Color.WHITE) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }).forEach(wp -> {
+                System.out.println(wp.print());
+            });
+        });*/
 
-/*
-        allPieces.stream.filter(p -> {
-            if (p.color == Color.WHITE) {
-                return true;
-            } else {
-                return false;
-            }
-        }).
-                filter(wp -> {
-                    if (p.typ == ChessPiece.PAWN) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }.foreach(wp -> {
-                    System.out.println(wp);
-                }));*/
 
     }
 

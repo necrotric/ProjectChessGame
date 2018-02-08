@@ -27,22 +27,30 @@ public class Move extends Pieces {
         Pieces fromPiece = board[fromRank][fromFile];
         Pieces toPiece = board[toRank][toFile];
 
-        System.out.println(fromPiece.getColor() + board[toRank][toFile].getColor().toString());
+        System.out.println(fromPiece.getColor() + " -> " + toPiece.getColor());
 
         return fromPiece != emptyTile &&
-                pieceMovementRule.get(fromPiece).test(this) &&
-                fromPiece.getColor() != toPiece.getColor() && isBlocked();
+                pieceMovementRule.get(fromPiece).test(this) && isEnemy()
+                && clearPath();
     }
 
 
-    public boolean isBlocked() {
-        if (board[fromRank + 1][fromFile] == emptyTile) {
+    public boolean clearPath() {
+        Pieces fromPiece = board[fromRank][fromFile];
+        Pieces toPiece = board[toRank][toFile];
+        if (board[fromRank][fromFile].piece == ChessPiece.KNIGHT) {
             return true;
-        } else
-            System.out.println("står en jävel i vägen");
+        }
+        System.out.println("står en jävel i vägen");
         return false;
     }
 
+    public boolean isEnemy() {
+        Pieces fromPiece = board[fromRank][fromFile];
+        Pieces toPiece = board[toRank][toFile];
+
+        return fromPiece.getColor() != toPiece.getColor();
+    }
 
     static Map<Pieces, Predicate<Move>> pieceMovementRule = new HashMap<>();
 
@@ -55,6 +63,7 @@ public class Move extends Pieces {
                 return Move.isblackPawn();
             }
         });
+
         pieceMovementRule.put(whitePawn, move -> Move.iswhitePawn());
         pieceMovementRule.put(blackRook, move -> Move.isVertical() || Move.isHorizontal());
         pieceMovementRule.put(whiteRook, move -> Move.isVertical() || Move.isHorizontal());
@@ -64,10 +73,14 @@ public class Move extends Pieces {
         pieceMovementRule.put(whiteKing, move -> Move.isKing());
         pieceMovementRule.put(whiteQueen, move -> Move.isVertical() || Move.isHorizontal() || Move.isDiagonal());
         pieceMovementRule.put(blackQueen, move -> Move.isVertical() || Move.isHorizontal() || Move.isDiagonal());
-        pieceMovementRule.put(blackKnight, move -> Move.isBlackKnight());
-        pieceMovementRule.put(whiteKnight, move -> Move.isBlackKnight());
+        pieceMovementRule.put(blackKnight, move -> Move.isKnight());
+        pieceMovementRule.put(whiteKnight, move -> Move.isKnight());
     }
 
+
+    private static boolean isDiagonal() {
+        return Math.abs(fromRank - toRank) - Math.abs(fromFile - toFile) == 0;
+    }
 
     private static boolean isHorizontal() {
         return fromRank == toRank;
@@ -93,8 +106,8 @@ public class Move extends Pieces {
         }
     }
 
-    private static boolean isDiagonal() {
-        return Math.abs(fromRank - toRank) - Math.abs(fromFile - toFile) == 0;
+    private static boolean isKnight() {
+        return 5 == (toRank - fromRank) * (toRank - fromRank) + (toFile - fromFile) * (toFile - fromFile);
     }
 
     private static boolean isKing() {
@@ -110,13 +123,4 @@ public class Move extends Pieces {
             return false;
         }
     }
-
-    private static boolean isWhiteKing() {
-        return fromRank - 1 == toRank || fromFile + 1 == toFile || fromFile - 1 == toFile;
-    }
-
-    private static boolean isBlackKnight() {
-        return fromRank - toRank == 1 || fromRank - toRank == -1;
-    }
-
 }

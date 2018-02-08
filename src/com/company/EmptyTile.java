@@ -3,9 +3,9 @@ package com.company;
 public class EmptyTile extends Pieces {
 
 
-    public EmptyTile(Color color) {
+    public EmptyTile() {
 
-        super(color);
+        this.color=Color.ORANGE;
         this.value = 0;
         this.icon = " ";
 
