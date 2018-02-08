@@ -79,6 +79,7 @@ public class Board {
                 b.setFont(new Font("Serif", Font.BOLD, 50));
                 b.setBorder(border);
                 b.setOpaque(true);
+                b.setEnabled(false);
 
                 if ((i % 2 == 1 && j % 2 == 1) || (i % 2 == 0 && j % 2 == 0)) {
                     b.setBackground(WHITE);
@@ -185,8 +186,6 @@ public class Board {
             printBoardToTerminal();
 
         }*/
-
-
         Move move = new Move(0, 1, 2, 2);
         if (move.isValid(board)) {
             board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
