@@ -24,14 +24,32 @@ public class Move extends Pieces {
     }
 
     public boolean isValid(Pieces[][] board) {
-        Pieces piece = board[fromRank][fromFile];
+        Pieces fromPiece = board[fromRank][fromFile];
+        Pieces toPiece = board[toRank][toFile];
 
-        if (piece == null) {
-            //System.out.println("move is not valid");
-            return false;
-        } else {
-            return pieceMovementRule.get(piece).test(this);
+        System.out.println(fromPiece.getColor() + " -> " + toPiece.getColor());
+
+        return fromPiece != emptyTile &&
+                pieceMovementRule.get(fromPiece).test(this) && isEnemy()
+                && clearPath();
+    }
+
+
+    public boolean clearPath() {
+        Pieces fromPiece = board[fromRank][fromFile];
+        Pieces toPiece = board[toRank][toFile];
+        if (board[fromRank][fromFile].piece == ChessPiece.KNIGHT) {
+            return true;
         }
+        System.out.println("står en jävel i vägen");
+        return false;
+    }
+
+    public boolean isEnemy() {
+        Pieces fromPiece = board[fromRank][fromFile];
+        Pieces toPiece = board[toRank][toFile];
+
+        return fromPiece.getColor() != toPiece.getColor();
     }
 
     static Map<Pieces, Predicate<Move>> pieceMovementRule = new HashMap<>();
@@ -45,50 +63,24 @@ public class Move extends Pieces {
                 return Move.isblackPawn();
             }
         });
-        pieceMovementRule.put(whitePawn, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.iswhitePawn();
 
-            }
-        });
-             pieceMovementRule.put(blackRook, new Predicate<Move>(){
-            @Override
-            public boolean test(Move move){
-                return Move.isRook();
-            }
-                });
-        pieceMovementRule.put(blackBishop, new Predicate<Move>(){
-            @Override
-            public boolean test(Move move){
-                return Move.isDiagonal();
-            }
-        });
-      /*  pieceMovementRule.put(whiteKnight, new Predicate<Move>(){
-            @Override
-                    public boolean test(Move move){
-                return Move.isKnight();
-            }
-        });
-        pieceMovementRule.put(blackKnight, new Predicate<Move>(){
-            @Override
-            public boolean test(Move move){
-                return Move.isKnight();
-            }
-        });*/
-
-
-
-/*        pieceMovementRule.put(Piece.ROOK, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isVertical() || Move.isHorizontal();
-            }
-        });
-        pieceMovementRule.put(Piece.BISHOP, (move -> Move.isDiagonal()));
-        pieceMovementRule.put(Piece.KNIGHT, (move) -> Move.isKnight());*/
+        pieceMovementRule.put(whitePawn, move -> Move.iswhitePawn());
+        pieceMovementRule.put(blackRook, move -> Move.isVertical() || Move.isHorizontal());
+        pieceMovementRule.put(whiteRook, move -> Move.isVertical() || Move.isHorizontal());
+        pieceMovementRule.put(blackBishop, move -> Move.isDiagonal());
+        pieceMovementRule.put(whiteBishop, move -> Move.isDiagonal());
+        pieceMovementRule.put(blackKing, move -> Move.isKing());
+        pieceMovementRule.put(whiteKing, move -> Move.isKing());
+        pieceMovementRule.put(whiteQueen, move -> Move.isVertical() || Move.isHorizontal() || Move.isDiagonal());
+        pieceMovementRule.put(blackQueen, move -> Move.isVertical() || Move.isHorizontal() || Move.isDiagonal());
+        pieceMovementRule.put(blackKnight, move -> Move.isKnight());
+        pieceMovementRule.put(whiteKnight, move -> Move.isKnight());
     }
 
+
+    private static boolean isDiagonal() {
+        return Math.abs(fromRank - toRank) - Math.abs(fromFile - toFile) == 0;
+    }
 
     private static boolean isHorizontal() {
         return fromRank == toRank;
@@ -99,29 +91,36 @@ public class Move extends Pieces {
     }
 
     private static boolean isblackPawn() {
-        if(fromRank==1){
+        if (fromRank == 1) {
             return fromRank + 1 == toRank && fromFile == toFile || fromRank + 2 == toRank && fromFile == toFile;
-        }
-        else {
+        } else {
             return fromRank + 1 == toRank && fromFile == toFile;
         }
     }
 
     private static boolean iswhitePawn() {
-        return fromRank - 1 == toRank && fromFile == toFile;
+        if (fromRank == 1) {
+            return fromRank - 1 == toRank && fromFile == toFile || fromRank - 2 == toRank && fromFile == toFile;
+        } else {
+            return fromRank - 1 == toRank && fromFile == toFile;
+        }
     }
 
-    private static boolean isDiagonal() {
-        return (fromRank - toRank) / (fromFile - toFile) == 1 || (fromRank - toRank) / (fromFile - toFile) == -1;
+    private static boolean isKnight() {
+        return 5 == (toRank - fromRank) * (toRank - fromRank) + (toFile - fromFile) * (toFile - fromFile);
     }
 
-/*    private static boolean isKnight() {
-        return (fromRank - toRank) / (fromFile - toFile) == 2 || (fromRank - toRank) / (fromFile - toFile) == -2
-                || (fromFile - toFile) / (fromRank - toRank) == 2 || (fromFile - toFile) / (fromRank - toRank) == -2;
-    }*/
-        private static boolean isRook(){
-        return fromRank == toRank && toRank>=0 && toRank<=7||fromFile == toFile && toFile>=0 && toFile<=7;
+    private static boolean isKing() {
+        if (fromRank + 1 == toRank && fromFile == toFile) {
+            return true;
+        } else if (fromFile + 1 == toFile && toRank == fromRank) {
+            return true;
+        } else if (fromFile - 1 == toFile && fromRank == toRank) {
+            return true;
+        } else if (fromRank - 1 == toRank && fromFile == toFile) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
-
 }

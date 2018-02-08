@@ -14,22 +14,25 @@ public abstract class Pieces {
 
     enum Color {
         BLACK,
-        WHITE
+        WHITE,
+        ORANGE
     }
 
 
     int value;
     String icon;
-    private Color color;
+    Color color;
     ChessPiece piece;
 
     Pieces() {
+        this.color=color;
     }
 
 
     public void setColor(Color color) {
         this.color = color;
     }
+
     public Color getColor() {
         return color;
     }
@@ -41,6 +44,7 @@ public abstract class Pieces {
         this.piece = piece;
 
     }
+
 
     String print() {
 
