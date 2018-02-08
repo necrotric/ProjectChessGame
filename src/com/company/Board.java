@@ -3,13 +3,18 @@ package com.company;
 import com.company.Pieces.ChessPiece;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.xml.stream.StreamFilter;
 import java.awt.*;
-import java.util.Random;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.IntStream;
 
-import static com.company.Pieces.*;
 import static java.awt.Color.*;
 
 import com.company.Pieces.Color;
+
 
 public class Board {
     //KANSKE SÅHÄR ISTÄLLET??? testa
@@ -25,26 +30,29 @@ public class Board {
     static Pieces blackQueen = new Queen(Color.BLACK);
     static Pieces whiteKing = new King(Color.WHITE);
     static Pieces blackKing = new King(Color.BLACK);
+    static Pieces emptyTile = new EmptyTile();
+
 
     public static Pieces[][] board =
-            board = new Pieces[][]{
+            new Pieces[][]{
                     new Pieces[]{
-                            blackRook, blackRook, blackBishop, blackQueen, blackKing,
-                            blackBishop, blackRook, blackRook},
+                            blackRook, blackKnight, blackBishop, blackQueen, blackKing,
+                            blackBishop, blackKnight, blackRook},
                     new Pieces[]{
                             blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
                             blackPawn, blackPawn, blackPawn},
-                    new Pieces[8],
-                    new Pieces[8],
-                    new Pieces[8],
-                    new Pieces[8],
+                    new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
+                    new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
+                    new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
+                    new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
                     new Pieces[]{
                             whitePawn, whitePawn, whitePawn, whitePawn, whitePawn,
                             whitePawn, whitePawn, whitePawn},
                     new Pieces[]{
-                            whiteRook, whiteRook, whiteBishop, whiteQueen, whiteKing,
-                            whiteBishop, whiteRook, whiteRook},
+                            whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing,
+                            whiteBishop, whiteKnight, whiteRook},
             };
+
     static boolean start = true;
 
     public static void printBoard(JFrame window) {
@@ -53,7 +61,7 @@ public class Board {
         JButton[][] chessBoardSquares = new JButton[8][8];
         Font font = new Font("Serif", Font.PLAIN, 45);
 
-        Border border = BorderFactory.createLineBorder(BLACK,2);
+        Border border = BorderFactory.createLineBorder(BLACK, 2);
 
         for (int ii = 1; ii < 10; ii++) {
             gui.add(
@@ -71,24 +79,17 @@ public class Board {
                 b.setFont(new Font("Serif", Font.BOLD, 50));
                 b.setBorder(border);
                 b.setOpaque(true);
-
+                b.setEnabled(false);
 
                 if ((i % 2 == 1 && j % 2 == 1) || (i % 2 == 0 && j % 2 == 0)) {
                     b.setBackground(WHITE);
                 } else {
-<<<<<<< HEAD
-                    b.setBackground(DARK_GRAY);
-=======
                     b.setBackground(RED);
->>>>>>> fh
                 }
                 chessBoardSquares[j][i] = b;
-
-                if (board[i][j] != null) {
-                    b.add(new JLabel(board[i][j].icon)).setFont(font);
-                    b.setOpaque(true);
-                    b.setForeground(RED);
-                }
+                b.add(new JLabel(board[i][j].icon)).setFont(font);
+                b.setOpaque(true);
+                b.setForeground(RED);
                 gui.add(b);
             }
         }
@@ -185,38 +186,41 @@ public class Board {
             printBoardToTerminal();
 
         }*/
-    Move move = new Move(0,0,7,0);
-   if(move.isValid(board)){
-       board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
-       board[move.fromRank][move.fromFile] = null;
-   }
+        Move move = new Move(0, 1, 2, 2);
+        if (move.isValid(board)) {
+            board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
+            board[move.fromRank][move.fromFile] = emptyTile;
+            System.out.println("Moving");
+            printBoard(window);
+            printBoardToTerminal();
+        } else {
+            System.out.println("Not moving");
+
+        }
 
 
-
+/*        Arrays.stream(board).forEach(p -> {
+            Arrays.stream(p).filter(wp -> {
+                if (wp.color == Color.WHITE) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }).forEach(wp -> {
+                System.out.println(wp.print());
+            });
+        });*/
 
 
     }
 
     public static void printBoardToTerminal() {
-
         for (int i = 0; i < board.length; i++) {
             // Loop through all elements of current row
             for (int j = 0; j < board[i].length; j++) {
-                if (board[i][j] != null) {
-                    System.out.print(board[i][j].print() + "  ");
-                } else {
-                    System.out.print("  ORANGE");
-                }
+                System.out.print(board[i][j].print() + " ");
             }
             System.out.println(i);
-        }
-    }
-
-    public static void sleep(int millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
