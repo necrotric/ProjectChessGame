@@ -21,7 +21,7 @@ public abstract class Pieces {
 
     int value;
     String icon;
-    private Color color;
+    Color color;
     ChessPiece piece;
 
     Pieces() {
@@ -31,6 +31,7 @@ public abstract class Pieces {
     public void setColor(Color color) {
         this.color = color;
     }
+
     public Color getColor() {
         return color;
     }
@@ -42,8 +43,6 @@ public abstract class Pieces {
         this.piece = piece;
 
     }
-
-
 
 
     String print() {

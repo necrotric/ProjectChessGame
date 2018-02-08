@@ -31,7 +31,16 @@ public class Move extends Pieces {
 
         return fromPiece != emptyTile &&
                 pieceMovementRule.get(fromPiece).test(this) &&
-                fromPiece.getColor() != toPiece.getColor();
+                fromPiece.getColor() != toPiece.getColor() && isBlocked();
+    }
+
+
+    public boolean isBlocked() {
+        if (board[fromRank + 1][fromFile] == emptyTile) {
+            return true;
+        } else
+            System.out.println("står en jävel i vägen");
+        return false;
     }
 
 
@@ -46,78 +55,17 @@ public class Move extends Pieces {
                 return Move.isblackPawn();
             }
         });
-        pieceMovementRule.put(whitePawn, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.iswhitePawn();
-
-            }
-        });
-
-        pieceMovementRule.put(blackRook, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isVertical() || Move.isHorizontal();
-            }
-        });
-
-        pieceMovementRule.put(whiteRook, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isVertical() || Move.isHorizontal();
-            }
-        });
-
-        pieceMovementRule.put(blackBishop, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isDiagonal();
-            }
-        });
-        pieceMovementRule.put(whiteBishop, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isDiagonal();
-            }
-        });
-        pieceMovementRule.put(blackKing, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isKing();
-            }
-        });
-        pieceMovementRule.put(whiteKing, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isKing();
-            }
-        });
-        pieceMovementRule.put(whiteQueen, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isVertical() || Move.isHorizontal() || Move.isDiagonal();
-            }
-        });
-        pieceMovementRule.put(blackQueen, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isVertical() || Move.isHorizontal() || Move.isDiagonal();
-            }
-        });
-        pieceMovementRule.put(blackKnight, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isBlackKnight();
-            }
-        });
-        pieceMovementRule.put(whiteKnight, new Predicate<Move>() {
-            @Override
-            public boolean test(Move move) {
-                return Move.isBlackKnight();
-            }
-        });
-
-
+        pieceMovementRule.put(whitePawn, move -> Move.iswhitePawn());
+        pieceMovementRule.put(blackRook, move -> Move.isVertical() || Move.isHorizontal());
+        pieceMovementRule.put(whiteRook, move -> Move.isVertical() || Move.isHorizontal());
+        pieceMovementRule.put(blackBishop, move -> Move.isDiagonal());
+        pieceMovementRule.put(whiteBishop, move -> Move.isDiagonal());
+        pieceMovementRule.put(blackKing, move -> Move.isKing());
+        pieceMovementRule.put(whiteKing, move -> Move.isKing());
+        pieceMovementRule.put(whiteQueen, move -> Move.isVertical() || Move.isHorizontal() || Move.isDiagonal());
+        pieceMovementRule.put(blackQueen, move -> Move.isVertical() || Move.isHorizontal() || Move.isDiagonal());
+        pieceMovementRule.put(blackKnight, move -> Move.isBlackKnight());
+        pieceMovementRule.put(whiteKnight, move -> Move.isBlackKnight());
     }
 
 

@@ -4,12 +4,16 @@ import com.company.Pieces.ChessPiece;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.xml.stream.StreamFilter;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.IntStream;
 
 import static java.awt.Color.*;
 
 import com.company.Pieces.Color;
-
 
 
 public class Board {
@@ -30,7 +34,7 @@ public class Board {
 
 
     public static Pieces[][] board =
-            board = new Pieces[][]{
+            new Pieces[][]{
                     new Pieces[]{
                             blackRook, blackRook, blackBishop, blackQueen, blackKing,
                             blackBishop, blackRook, blackRook},
@@ -187,7 +191,7 @@ public class Board {
         }*/
 
 
-        Move move = new Move(7, 0, 0, 0);
+        Move move = new Move(1, 2, 3, 2);
         if (move.isValid(board)) {
             board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
             board[move.fromRank][move.fromFile] = emptyTile;
@@ -200,6 +204,13 @@ public class Board {
         }
 
 
+        Arrays.stream(board).forEach(p -> Arrays.stream(p).filter(wp -> {
+            if (wp.color == Color.WHITE) {
+                return true;
+            } else {
+                return false;
+            }
+        }).forEach(wp -> System.out.println(wp.getColor() + wp.getClass().getSimpleName())));
 
 /*
         allPieces.stream.filter(p -> {
