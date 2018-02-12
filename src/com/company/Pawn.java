@@ -1,9 +1,6 @@
 package com.company;
 
 
-import java.awt.*;
-
-
 public class Pawn extends Pieces {
 
     public Pawn(){
@@ -11,17 +8,11 @@ public class Pawn extends Pieces {
     }
 
 
-    public Pawn(Color color) {
-        super(color);
+    public Pawn(Team team) {
+        super(team);
         this.value=1;
         this.piece=ChessPiece.PAWN;
-
-        if(color== Color.WHITE)
-        {this.icon="\u2659";}
-        else{
         this.icon="\u265F";
-        }
-
     }
 
 

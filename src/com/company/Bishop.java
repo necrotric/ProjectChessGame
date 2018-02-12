@@ -5,16 +5,12 @@ public class Bishop extends Pieces {
     public Bishop() {
     }
 
-    public Bishop(Color color) {
+    public Bishop(Team team) {
 
-        super(color);
+        super(team);
         this.value = 3;
         this.piece = ChessPiece.BISHOP;
+        this.icon = "\u265D";
 
-        if (color == Color.WHITE) {
-            this.icon = "\u2657";
-        } else {
-            this.icon = "\u265D ";
-        }
     }
 }

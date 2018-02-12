@@ -27,7 +27,7 @@ public class Move extends Pieces {
         Pieces fromPiece = board[fromRank][fromFile];
         Pieces toPiece = board[toRank][toFile];
 
-        System.out.println(fromPiece.getColor() + " -> " + toPiece.getColor());
+        System.out.println(fromPiece.getTeam() + " -> " + toPiece.getTeam());
 
         return fromPiece != emptyTile &&
                 pieceMovementRule.get(fromPiece).test(this) && isEnemy()
@@ -49,7 +49,7 @@ public class Move extends Pieces {
         Pieces fromPiece = board[fromRank][fromFile];
         Pieces toPiece = board[toRank][toFile];
 
-        return fromPiece.getColor() != toPiece.getColor();
+        return fromPiece.getTeam() != toPiece.getTeam();
     }
 
     static Map<Pieces, Predicate<Move>> pieceMovementRule = new HashMap<>();

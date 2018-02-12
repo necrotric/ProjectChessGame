@@ -1,35 +1,28 @@
 package com.company;
 
-import com.company.Pieces.ChessPiece;
-
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.xml.stream.StreamFilter;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.IntStream;
 
 import static java.awt.Color.*;
 
-import com.company.Pieces.Color;
+import com.company.Pieces.Team;
 
 
 public class Board {
     //KANSKE SÅHÄR ISTÄLLET??? testa
-    static Pieces blackPawn = new Pawn(Color.BLACK);
-    static Pieces whitePawn = new Pawn(Color.WHITE);
-    static Pieces whiteRook = new Rook(Color.WHITE);
-    static Pieces blackRook = new Rook(Color.BLACK);
-    static Pieces whiteKnight = new Knight(Color.WHITE);
-    static Pieces blackKnight = new Knight(Color.BLACK);
-    static Pieces whiteBishop = new Bishop(Color.WHITE);
-    static Pieces blackBishop = new Bishop(Color.BLACK);
-    static Pieces whiteQueen = new Queen(Color.WHITE);
-    static Pieces blackQueen = new Queen(Color.BLACK);
-    static Pieces whiteKing = new King(Color.WHITE);
-    static Pieces blackKing = new King(Color.BLACK);
+    static Pieces blackPawn = new Pawn(Team.BLACK);
+    static Pieces whitePawn = new Pawn(Team.WHITE);
+    static Pieces whiteRook = new Rook(Team.WHITE);
+    static Pieces blackRook = new Rook(Pieces.Team.BLACK);
+    static Pieces whiteKnight = new Knight(Team.WHITE);
+    static Pieces blackKnight = new Knight(Team.BLACK);
+    static Pieces whiteBishop = new Bishop(Team.WHITE);
+    static Pieces blackBishop = new Bishop(Team.BLACK);
+    static Pieces whiteQueen = new Queen(Team.WHITE);
+    static Pieces blackQueen = new Queen(Team.BLACK);
+    static Pieces whiteKing = new King(Team.WHITE);
+    static Pieces blackKing = new King(Team.BLACK);
     static Pieces emptyTile = new EmptyTile();
 
 
@@ -82,14 +75,21 @@ public class Board {
                 b.setEnabled(false);
 
                 if ((i % 2 == 1 && j % 2 == 1) || (i % 2 == 0 && j % 2 == 0)) {
-                    b.setBackground(WHITE);
+                    b.setBackground(Color.WHITE);
                 } else {
-                    b.setBackground(RED);
+                    b.setBackground(Color.decode("#324e35"));
                 }
                 chessBoardSquares[j][i] = b;
-                b.add(new JLabel(board[i][j].icon)).setFont(font);
+                JLabel piece = new JLabel(board[i][j].icon);
+                piece.setFont(font);
+                if (board[i][j].team == Team.WHITE) {
+                    piece.setForeground(Color.decode("#c1d7c3"));
+                } if (board[i][j].team == Team.BLACK) {
+                    piece.setForeground(Color.BLACK);
+                }
+                b.add(piece);
                 b.setOpaque(true);
-                b.setForeground(RED);
+                //b.setForeground(RED);
                 gui.add(b);
             }
         }
@@ -201,7 +201,7 @@ public class Board {
 
 /*        Arrays.stream(board).forEach(p -> {
             Arrays.stream(p).filter(wp -> {
-                if (wp.color == Color.WHITE) {
+                if (wp.team == Team.WHITE) {
                     return true;
                 } else {
                     return false;
