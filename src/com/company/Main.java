@@ -13,7 +13,7 @@ public class Main {
 
         Board.printBoard(window);
         sleep(1000);
-        Board.moving(window);
+        GenerateMoves.moving(window);
 
     }
 

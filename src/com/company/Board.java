@@ -36,21 +36,17 @@ public class Board {
     public static Pieces[][] board =
             new Pieces[][]{
                     new Pieces[]{
-                            blackRook, blackKnight, blackBishop, blackQueen, blackKing,
-                            blackBishop, blackKnight, blackRook},
+                            blackRook, blackKnight, blackBishop, blackQueen, blackKing, blackBishop, blackKnight, blackRook},
                     new Pieces[]{
-                            blackPawn, blackPawn, blackPawn, blackPawn, blackPawn,
-                            blackPawn, blackPawn, blackPawn},
+                            blackPawn, blackPawn, blackPawn, blackPawn, blackPawn, blackPawn, blackPawn, blackPawn},
                     new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
                     new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
                     new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
                     new Pieces[]{emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile, emptyTile},
                     new Pieces[]{
-                            whitePawn, whitePawn, whitePawn, whitePawn, whitePawn,
-                            whitePawn, whitePawn, whitePawn},
+                            whitePawn, whitePawn, whitePawn, whitePawn, whitePawn, whitePawn, whitePawn, whitePawn},
                     new Pieces[]{
-                            whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing,
-                            whiteBishop, whiteKnight, whiteRook},
+                            whiteRook, whiteKnight, whiteBishop, whiteQueen, whiteKing, whiteBishop, whiteKnight, whiteRook},
             };
 
     static boolean start = true;
@@ -99,121 +95,6 @@ public class Board {
     }
 
 
-    static void moving(JFrame window) {
- /*       int[] validMovesAi = new int[30000];
-
-        int countingValidIndex = 0;
-        int countingValidMoves = 0;
-        long loops = 0;
-        Random rand = new Random();
-        for (int o = 0; o < 100; o++) {
-            loops++;
-            for (int i = 0; i < board.length; i++) {
-                loops++;
-                for (int j = 0; j < board.length; j++) {
-                    loops++;
-                    for (int k = 0; k < board.length; k++) {
-                        loops++;
-                        for (int l = 0; l < board.length; l++) {
-                            loops++;
-                            if (i != k || j != l) {
-                                if (board[i][j] != null) {
-                                    Move move = new Move(i, j, k, l);
-                                    if (move.isValid(board)) {
-                                        System.out.println(i + "," + j + "," + k + "," + l);
-                                        validMovesAi[countingValidIndex] = i;
-                                        countingValidIndex++;
-                                        validMovesAi[countingValidIndex] = j;
-                                        countingValidIndex++;
-                                        validMovesAi[countingValidIndex] = k;
-                                        countingValidIndex++;
-                                        validMovesAi[countingValidIndex] = l;
-                                        countingValidIndex++;
-                                        countingValidMoves++;
-
-                                        //sleep(500);
-                                        printBoard(window);
-                                        printBoardToTerminal();
-                                        System.out.println(String.format("Move valid: [%d, %d -> %d, %d]", i, j, k, l));
-                                    } else {
-                                        //      System.out.println("move is not valid");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-
-            }
-
-
-            int number = rand.nextInt(countingValidMoves) * 4;
-            int divider = 1;
-            for (int asd : validMovesAi) {
-                if (divider % 4 == 0) {
-                    System.out.print(asd + " ");
-                    divider++;
-                } else {
-                    System.out.print(asd);
-                    divider++;
-                }
-            }
-
-
-            System.out.println(validMovesAi[number]);
-            for (int i = 0; i < countingValidIndex; i++) ;
-            for (int i = 0; i < 4; i++) {
-                System.out.print(validMovesAi[number + i]);
-
-            }
-
-
-            //Random flyttar 1 pjäs från valid move
-            int x1 = validMovesAi[number];
-            int y1 = validMovesAi[number + 1];
-            int x2 = validMovesAi[number + 2];
-            int y2 = validMovesAi[number + 3];
-            Move moveRandom = new Move(x1, y1, x2, y2);
-
-
-            if (moveRandom.isValid(board)) {
-                board[moveRandom.toRank][moveRandom.toFile] = board[moveRandom.fromRank][moveRandom.fromFile];
-                board[moveRandom.fromRank][moveRandom.fromFile] = null;
-            }
-
-            printBoard(window);
-            printBoardToTerminal();
-
-        }*/
-        Move move = new Move(0, 1, 2, 2);
-        if (move.isValid(board)) {
-            board[move.toRank][move.toFile] = board[move.fromRank][move.fromFile];
-            board[move.fromRank][move.fromFile] = emptyTile;
-            System.out.println("Moving");
-            printBoard(window);
-            printBoardToTerminal();
-        } else {
-            System.out.println("Not moving");
-
-        }
-
-
-/*        Arrays.stream(board).forEach(p -> {
-            Arrays.stream(p).filter(wp -> {
-                if (wp.color == Color.WHITE) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }).forEach(wp -> {
-                System.out.println(wp.print());
-            });
-        });*/
-
-
-    }
-
     public static void printBoardToTerminal() {
         for (int i = 0; i < board.length; i++) {
             // Loop through all elements of current row
@@ -223,4 +104,8 @@ public class Board {
             System.out.println(i);
         }
     }
+
+
+
 }
+

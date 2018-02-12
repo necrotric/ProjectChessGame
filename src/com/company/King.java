@@ -10,6 +10,5 @@ public class King extends Pieces {
         } else {
             this.icon = "\u265A";
         }
-
     }
 }

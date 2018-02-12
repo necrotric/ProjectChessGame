@@ -39,21 +39,21 @@ public class Move extends Pieces {
         Pieces fromPiece = board[fromRank][fromFile];
         Pieces toPiece = board[toRank][toFile];
         if (board[fromRank][fromFile].piece == ChessPiece.KNIGHT) {
+
             return true;
         }
-        System.out.println("står en jävel i vägen");
-        return false;
+        return true;
     }
 
     public boolean isEnemy() {
         Pieces fromPiece = board[fromRank][fromFile];
         Pieces toPiece = board[toRank][toFile];
 
+
         return fromPiece.getColor() != toPiece.getColor();
     }
 
     static Map<Pieces, Predicate<Move>> pieceMovementRule = new HashMap<>();
-
 
     static {
         //ÄNDRADE HASHMAPPEN ATT TA IN OBJECT IST FÖR ENUM
@@ -99,7 +99,7 @@ public class Move extends Pieces {
     }
 
     private static boolean iswhitePawn() {
-        if (fromRank == 1) {
+        if (fromRank == 6) {
             return fromRank - 1 == toRank && fromFile == toFile || fromRank - 2 == toRank && fromFile == toFile;
         } else {
             return fromRank - 1 == toRank && fromFile == toFile;
@@ -111,16 +111,6 @@ public class Move extends Pieces {
     }
 
     private static boolean isKing() {
-        if (fromRank + 1 == toRank && fromFile == toFile) {
-            return true;
-        } else if (fromFile + 1 == toFile && toRank == fromRank) {
-            return true;
-        } else if (fromFile - 1 == toFile && fromRank == toRank) {
-            return true;
-        } else if (fromRank - 1 == toRank && fromFile == toFile) {
-            return true;
-        } else {
-            return false;
-        }
+        return fromRank + 1 == toRank && fromFile == toFile || fromFile + 1 == toFile && toRank == fromRank || fromFile - 1 == toFile && fromRank == toRank || fromRank - 1 == toRank && fromFile == toFile;
     }
 }
