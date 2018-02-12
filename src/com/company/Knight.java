@@ -6,16 +6,10 @@ public class Knight extends Pieces {
 
     }
 
-    public Knight(Color color) {
-        super(color);
+    public Knight(Team team) {
+        super(team);
         this.value = 2;
         this.piece = ChessPiece.KNIGHT;
-
-        if (color == Color.WHITE) {
-            this.icon = "\u2658";
-        } else {
-            this.icon = "\u265E";
-        }
-
+        this.icon = "\u265E";
     }
 }

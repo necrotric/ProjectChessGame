@@ -1,16 +1,11 @@
 package com.company;
 
 public class Queen extends Pieces {
-    public Queen(Color color) {
-        super(color);
+
+    public Queen(Team team) {
+        super(team);
         this.value = 10;
         this.piece = ChessPiece.QUEEN;
-
-        if (color == Color.WHITE) {
-            this.icon = "\u2655";
-        } else {
-            this.icon = "\u265B";
-        }
-
+        this.icon = "\u265B";
     }
 }

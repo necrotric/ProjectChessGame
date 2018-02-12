@@ -1,7 +1,5 @@
 package com.company;
 
-import java.awt.*;
-
 public abstract class Pieces {
     enum ChessPiece {
         ROOK,
@@ -12,7 +10,7 @@ public abstract class Pieces {
         KNIGHT
     }
 
-    enum Color {
+    enum Team {
         BLACK,
         WHITE,
         ORANGE
@@ -21,24 +19,24 @@ public abstract class Pieces {
 
     int value;
     String icon;
-    Color color;
+    Team team;
     ChessPiece piece;
 
     Pieces() {
-        this.color=color;
+        this.team = team;
     }
 
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
-    public Color getColor() {
-        return color;
+    public Team getTeam() {
+        return team;
     }
 
-    Pieces(Color color) {
-        this.color = color;
+    Pieces(Team team) {
+        this.team = team;
         this.value = value;
         this.icon = icon;
         this.piece = piece;
@@ -47,9 +45,7 @@ public abstract class Pieces {
 
 
     String print() {
-
-        return icon + color;
-
-
+        return icon + team;
     }
+
 }
